@@ -1,0 +1,60 @@
+ <html>
+<head>
+<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+<script src="angular.min.js"></script></head>
+<div ng-app="invoice">
+<h1 align="center">Customer Invoice
+Example</h1>
+<section class="row"
+ng-controller="InvoiceController">
+<table border=1>
+<tr>
+<th>Name</th>
+<th>contactno</th>
+<th>gender</th>
+<th>Item</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Total Amount</th>
+</tr>
+<tbody>
+<tr ng-repeat="item in invoice.items">
+<td><input type="text" ng-model="item.name" /></td>
+<td><input type="number" ng-model="item.contactno"/></td>
+<td><input type="text" ng-model="item.gender" /></td>
+<td>
+<select ng-model="item.favorite"
+id="mySelect">
+<option>Tshirt</option>
+<option>Jeans</option>
+<option>Watch</option>
+<option>Shoes</option>
+</select></td>
+<td><input type="number" name="price" ng-model="item.price"></td>
+<td><input type="number" ng-model="item.qty" /></td>
+<td>{{item.qty * item.price}} Rs</td>
+<td></td>
+<td>Amout to be Paid : </td>
+<td>{{total()}} Rs</td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+<script>
+ var invoice = angular.module('invoice', []);
+invoice.controller('InvoiceController', function($scope){
+$scope.invoice = {
+items: [{ name: '', contactno: '', gender: '', favorite:'',
+}]
+};
+$scope.total = function(){
+var total = total;
+angular.forEach($scope.invoice.items, function(item){
+total= item.qty * item.price;
+})
+return total; 
+}
+});
+</script>
